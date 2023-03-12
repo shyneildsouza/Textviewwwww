@@ -1,0 +1,1966 @@
+BroadCast AirPlace mode:
+AndroidManifest
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="in.eyehunt.androidbroadcasts">
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+XML:
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="in.eyehunt.androidbroadcasts.MainActivity">
+ 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/baseline_airplanemode_active_white_24" />
+ 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        android:text="Flight Mode"
+        android:textColor="@color/colorWhite"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+</android.support.constraint.ConstraintLayout>
+
+Creat Kotlin class:
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+ 
+class MyReceiver : BroadcastReceiver() {
+ 
+    override fun onReceive(context: Context, intent: Intent) {
+        // TODO: This method is called when the BroadcastReceiver is receiving
+        // an Intent broadcast.
+        Toast.makeText(context, "Broadcast : Flight mode changed.",
+                Toast.LENGTH_LONG).show()
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+Programming Resources
+Android Resources: (Color, Theme, String, Drawable, Dimension, Image).
+
+Color.XML
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+</resources>
+
+
+Style.xml
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
+
+String.xml
+<resources>
+    <string name="app_name">hello</string>
+    <string name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        </item>
+    </string>
+</resources>
+
+Add Image in DRawable
+
+Dimension and image -> Create activity and add Image
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:background="@drawable/one">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+</LinearLayout>
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+Programming Activities and fragments
+Activity Life Cycle, Activity methods, Multiple Activities, Life Cycle of fragments
+and multiple fragments.
+
+Example:
+import android.os.Bundle
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import android.util.Log
+import kotlinx.android.synthetic.main.activity_state_change.*
+class StateChangeActivity : AppCompatActivity() {
+ val TAG = "StateChange"
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ setContentView(R.layout.activity_state_change)
+ setSupportActionBar(toolbar)
+ fab.setOnClickListener { view ->
+ Snackbar.make(view, "Replace with your own action",
+ Snackbar.LENGTH_LONG)
+.setAction("Action", null).show()
+ }
+ Log.i(TAG, "onCreate")
+ }
+}
+override fun onStart() {
+ super.onStart()
+ Log.i(TAG, "onStart")
+}
+override fun onResume() {
+ super.onResume()
+ Log.i(TAG, "onResume")
+}
+override fun onPause() {
+ super.onPause()
+ Log.i(TAG, "onPause")
+}
+override fun onStop() {
+ super.onStop()
+ Log.i(TAG, "onStop")
+}
+override fun onRestart() {
+ super.onRestart()
+ Log.i(TAG, "onRestart")
+}
+override fun onDestroy() {
+ super.onDestroy()
+ Log.i(TAG, "onDestroy")
+}
+override fun onSaveInstanceState(outState: Bundle?) {
+ super.onSaveInstanceState(outState)
+ Log.i(TAG, "onSaveInstanceState")
+}
+override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+ super.onRestoreInstanceState(savedInstanceState)
+ Log.i(TAG, "onRestoreInstanceState")
+}
+
+Multiple Activities: Create two activities and link them
+must be able to go to second activity from first
+Activity1.xml
+Activity2.xml
+mainactivity1.kt:->
+package rohit.technobeat
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_register.*
+import rohit.technobeat.R.id.login
+import rohit.technobeat.R.id.newaccount
+class MainActivity : AppCompatActivity() {
+ override fun onCreate(savedInstanceState: Bundle?) {
+ super.onCreate(savedInstanceState)
+ setContentView(R.layout.activity_main)
+ second.setOnClickListener {
+ val intent = Intent(this, Activity_second::class.java)
+ // start your next activity
+ startActivity(intent)
+ }
+ third.setOnClickListener {
+ val intent = Intent(this, Activity_third::class.java)
+ // start your next activity
+ startActivity(intent)
+ }
+ }
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+Programs related to different Layouts
+Coordinate, Linear, Relative, Table, Absolute, Frame, List View, Grid View. 
+
+
+Create different LAyouts:
+
+1.	linear layout:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical" >
+
+<Button android:id="@+id/btnStartService"
+android:layout_width="270dp"
+android:layout_height="wrap_content"
+android:text="start_service"/>
+
+<Button android:id="@+id/btnPauseService"
+android:layout_width="270dp"
+android:layout_height="wrap_content"
+android:text="pause_service"/>
+
+<Button android:id="@+id/btnStopService"
+android:layout_width="270dp"
+android:layout_height="wrap_content"
+android:text="stop_service"/>
+
+</LinearLayout>
+
+2.	Relative:
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:paddingLeft="16dp"
+android:paddingRight="16dp" >
+
+<EditText
+android:id="@+id/name"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:hint="@string/reminder" />
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:layout_alignParentStart="true"
+android:layout_below="@+id/name">
+
+<Button
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="New Button"
+android:id="@+id/button" />
+
+<Button
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="New Button"
+android:id="@+id/button2" />
+
+</LinearLayout>
+
+</RelativeLayout>
+
+3.	Table:
+Activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TableLayout android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="150dp">
+            <TableRow>
+                <Button
+                android:id="@+id/btn1"
+                android:text="1"
+                android:layout_gravity="center"
+                />
+                <Button
+                        android:id="@+id/btn2"
+                        android:text="2"
+                        android:layout_gravity="center"
+                />
+                <Button
+                    android:id="@+id/btn3"
+                    android:text="3"
+                    android:layout_gravity="center"
+                />
+            </TableRow>
+            <TableRow>
+                <Button
+                        android:id="@+id/btn4"
+                        android:text="4"
+                        android:layout_gravity="center"
+                />
+                <Button
+                        android:id="@+id/btn5"
+                        android:text="5"
+                        android:layout_gravity="center"
+                /><Button
+                    android:id="@+id/btn6"
+                    android:text="6"
+                    android:layout_gravity="center"
+            />
+            </TableRow>
+            <TableRow>
+                <Button
+                        android:id="@+id/btn7"
+                        android:text="7"
+                        android:layout_gravity="center"
+                />
+                <Button
+                        android:id="@+id/btn8"
+                        android:text="8"
+                        android:layout_gravity="center"
+                /><Button
+                    android:id="@+id/btn9"
+                    android:text="9"
+                    android:layout_gravity="center"
+            />
+            </TableRow>
+        </TableLayout>
+
+</LinearLayout>
+
+Activity_main.kt
+package com.r.table_view
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.toast
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        btn1.setOnClickListener {
+            toast("1")
+        }
+        btn2.setOnClickListener {
+            toast("2")
+        }
+        btn3.setOnClickListener {
+            toast("3")
+        }
+        btn4.setOnClickListener {
+            toast("4")
+        }
+        btn5.setOnClickListener {
+            toast("5")
+        }
+        btn6.setOnClickListener {
+            toast("6")
+        }
+        btn7.setOnClickListener {
+            toast("7")
+        }
+        btn8.setOnClickListener {
+            toast("8")
+        }
+        btn9.setOnClickListener {
+            toast("9")
+        }
+
+
+    }
+}
+
+4.	Frame:
+
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+    <ImageView android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:src="@drawable/red"
+               android:scaleType="centerCrop"/>
+    <TextView
+            android:textSize="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:gravity="center"
+            android:textColor="@color/rohit"
+            android:layout_marginTop="220dp"
+            />
+
+</FrameLayout>
+
+
+
+
+Activity_main.kt
+
+package com.rohit.frame_layout
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+
+5.	List View:
+
+Activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+   <Button android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:id="@+id/btn"
+            android:text="Click me to view list"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="90dp"/>
+</LinearLayout>
+
+String.xml
+<resources>
+    <string name="app_name">list</string>
+
+    <array name="insert_list">
+        <item>one</item>
+        <item>two</item>
+        <item>three</item>
+        <item>four</item>
+        <item>five</item>
+        <item>six</item>
+        <item>seven</item>
+        <item>eight</item>
+        <item>nine</item>
+        <item>ten</item>
+    </array>
+</resources>
+
+Activity_list_view.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".list_view" android:entries="@array/insert_list">
+
+</ListView>
+
+List_view.kt:
+package com.rohit.list
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class list_view : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_list_view)
+    }
+}
+
+main_Activity.kt
+package com.rohit.list
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        btn.setOnClickListener {
+            val intent =Intent(this, list_view::class.java)
+            startActivity(intent)
+        }
+
+    }
+}
+
+
+6.	Grid layout:
+7.	<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:rowCount="3"
+        android:columnCount="3"
+        android:padding="20dp">
+
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="1"/>
+
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="2"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="3"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="4"/>
+
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="5"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="6"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="7"/>
+
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="8"/>
+    <Button
+            android:layout_width="110dp"
+            android:layout_height="100dp"
+            android:text="9"/>
+
+</GridLayout>
+
+mainActvity.kt:
+package com.rohit.grid_layout
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+}
+
+
+
+///////////////////////////////////////////////////////////////////////
+Programming UI elements
+Design App With UI:
+mainActivity.kt:
+package rohit.technobeat
+
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_register.*
+import rohit.technobeat.R.id.login
+import rohit.technobeat.R.id.newaccount
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        login.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
+
+        newaccount.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            // start your next activity
+            startActivity(intent)
+        }
+
+
+    }
+}
+activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/home"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:alpha="0.7"
+                android:text="TECHNOBEAT"
+                android:textColor="#000000"
+                android:textSize="33dp"
+                android:textStyle="bold"
+                tools:layout_marginLeft="85dp" />
+
+
+            <Button
+                android:id="@+id/login"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Login"
+                android:background="@drawable/round_button"
+                android:alpha="0.8"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/newaccount"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="REGISTER"
+                android:background="@drawable/round_button"
+                android:alpha="0.8"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+Programming menus, dialog, dialog fragments
+Alert:
+val alertDialog: AlertDialog? = activity?.let {
+    val builder = AlertDialog.Builder(it)
+    builder.apply {
+        setPositiveButton(R.string.ok,
+            DialogInterface.OnClickListener { dialog, id ->
+                // User clicked OK button
+            })
+        setNegativeButton(R.string.cancel,
+            DialogInterface.OnClickListener { dialog, id ->
+                // User cancelled the dialog
+            })
+    }
+    // Set other dialog properties
+    ...
+
+    // Create the AlertDialog
+    builder.create()
+}
+
+
+Menu:
+menu.xml:
+<?xml version=”1.0″ encoding=”utf-8″?>
+<menu xmlns:android=”http://schemas.android.com/apk/res/android&#8221;
+xmlns:app=”http://schemas.android.com/apk/res-auto”&gt;
+
+<item
+android:id=”@+id/menu_1″
+android:icon=”@drawable/ic_menu_1″
+android:title=”Menu 1″
+app:showAsAction=”always” />
+
+<item
+android:id=”@+id/menu_2″
+android:icon=”@drawable/ic_menu_2″
+android:title=”Menu 2″ />
+
+<item
+android:id=”@+id/menu_3″
+android:icon=”@drawable/ic_menu_3″
+android:title=”Menu 3″ />
+
+<item
+android:id=”@+id/menu_4″
+android:icon=”@drawable/ic_menu_4″
+android:title=”Menu 4″ />
+
+</menu>
+
+MainActivity.kt:
+package rohit.com
+
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_1 -> {
+                Toast.makeText(this, “Menu 1 is selected”, Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.menu_2 -> {
+                Toast.makeText(this, “Menu 2 is selected”, Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.menu_3 -> {
+                Toast.makeText(this, “Menu 3 is selected”, Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.menu_4 -> {
+                Toast.makeText(this, “Menu 4 is selected”, Toast.LENGTH_SHORT).show()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////////
+Programs on Services, notification and broadcast receivers
+Same as first one Broadcast Activity
+
+//////////////////////////////////////////////////////////////////////////////
+Database Programming with SQLite
+activity_main.xml:
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:gravity="center"
+tools:context="com.tutorialkart.sqlitetutorial.MainActivity">
+
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="SQLite Tutorial - User Management"
+android:textSize="20dp"
+android:padding="10dp" />
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical">
+<EditText
+android:id="@+id/edittext_userid"
+android:hint="User ID"
+android:gravity="center"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+<EditText
+android:id="@+id/edittext_name"
+android:hint="User Name"
+android:gravity="center"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+<EditText
+android:id="@+id/edittext_age"
+android:hint="User Age"
+android:gravity="center"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+</LinearLayout>
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal">
+<Button
+android:id="@+id/button_add_user"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:onClick="addUser"
+android:text="Add" />
+
+<Button
+android:id="@+id/button_delete_user"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:onClick="deleteUser"
+android:text="Delete" />
+
+<Button
+android:id="@+id/button_show_all"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_weight="1"
+android:onClick="showAllUsers"
+android:text="Show All" />
+</LinearLayout>
+<TextView
+android:id="@+id/textview_result"
+android:layout_width="match_parent"
+android:layout_height="wrap_content" />
+<LinearLayout
+android:id="@+id/ll_entries"
+android:padding="15dp"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"></LinearLayout>
+</LinearLayout>
+
+
+UserModel.kt:
+package com.tutorialkart.sqlitetutorial
+
+class UserModel(val userid: String, val name: String, val age: String)
+
+DBContract.kt
+package com.tutorialkart.sqlitetutorial
+
+import android.provider.BaseColumns
+
+object DBContract {
+
+    /* Inner class that defines the table contents */
+    class UserEntry : BaseColumns {
+        companion object {
+            val TABLE_NAME = "users"
+            val COLUMN_USER_ID = "userid"
+            val COLUMN_NAME = "name"
+            val COLUMN_AGE = "age"
+        }
+    }
+}
+
+UserDBHelper.kt:
+package com.tutorialkart.sqlitetutorial
+
+import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
+import android.database.sqlite.SQLiteConstraintException
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteException
+import android.database.sqlite.SQLiteOpenHelper
+
+import java.util.ArrayList
+
+class UsersDBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL(SQL_CREATE_ENTRIES)
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES)
+        onCreate(db)
+    }
+
+    override fun onDowngrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        onUpgrade(db, oldVersion, newVersion)
+    }
+
+    @Throws(SQLiteConstraintException::class)
+    fun insertUser(user: UserModel): Boolean {
+        // Gets the data repository in write mode
+        val db = writableDatabase
+
+        // Create a new map of values, where column names are the keys
+        val values = ContentValues()
+        values.put(DBContract.UserEntry.COLUMN_USER_ID, user.userid)
+        values.put(DBContract.UserEntry.COLUMN_NAME, user.name)
+        values.put(DBContract.UserEntry.COLUMN_AGE, user.age)
+
+        // Insert the new row, returning the primary key value of the new row
+        val newRowId = db.insert(DBContract.UserEntry.TABLE_NAME, null, values)
+
+        return true
+    }
+
+    @Throws(SQLiteConstraintException::class)
+    fun deleteUser(userid: String): Boolean {
+        // Gets the data repository in write mode
+        val db = writableDatabase
+        // Define 'where' part of query.
+        val selection = DBContract.UserEntry.COLUMN_USER_ID + " LIKE ?"
+        // Specify arguments in placeholder order.
+        val selectionArgs = arrayOf(userid)
+        // Issue SQL statement.
+        db.delete(DBContract.UserEntry.TABLE_NAME, selection, selectionArgs)
+
+        return true
+    }
+
+    fun readUser(userid: String): ArrayList<UserModel> {
+        val users = ArrayList<UserModel>()
+        val db = writableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery("select * from " + DBContract.UserEntry.TABLE_NAME + " WHERE " + DBContract.UserEntry.COLUMN_USER_ID + "='" + userid + "'", null)
+        } catch (e: SQLiteException) {
+            // if table not yet present, create it
+            db.execSQL(SQL_CREATE_ENTRIES)
+            return ArrayList()
+        }
+
+        var name: String
+        var age: String
+        if (cursor!!.moveToFirst()) {
+            while (cursor.isAfterLast == false) {
+                name = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_NAME))
+                age = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_AGE))
+
+                users.add(UserModel(userid, name, age))
+                cursor.moveToNext()
+            }
+        }
+        return users
+    }
+
+    fun readAllUsers(): ArrayList<UserModel> {
+        val users = ArrayList<UserModel>()
+        val db = writableDatabase
+        var cursor: Cursor? = null
+        try {
+            cursor = db.rawQuery("select * from " + DBContract.UserEntry.TABLE_NAME, null)
+        } catch (e: SQLiteException) {
+            db.execSQL(SQL_CREATE_ENTRIES)
+            return ArrayList()
+        }
+
+        var userid: String
+        var name: String
+        var age: String
+        if (cursor!!.moveToFirst()) {
+            while (cursor.isAfterLast == false) {
+                userid = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_USER_ID))
+                name = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_NAME))
+                age = cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COLUMN_AGE))
+
+                users.add(UserModel(userid, name, age))
+                cursor.moveToNext()
+            }
+        }
+        return users
+    }
+
+    companion object {
+        // If you change the database schema, you must increment the database version.
+        val DATABASE_VERSION = 1
+        val DATABASE_NAME = "FeedReader.db"
+
+        private val SQL_CREATE_ENTRIES =
+            "CREATE TABLE " + DBContract.UserEntry.TABLE_NAME + " (" +
+                    DBContract.UserEntry.COLUMN_USER_ID + " TEXT PRIMARY KEY," +
+                    DBContract.UserEntry.COLUMN_NAME + " TEXT," +
+                    DBContract.UserEntry.COLUMN_AGE + " TEXT)"
+
+        private val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DBContract.UserEntry.TABLE_NAME
+    }
+
+}
+
+MainActivity.kt:
+package com.tutorialkart.sqlitetutorial
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var usersDBHelper : UsersDBHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        usersDBHelper = UsersDBHelper(this)
+    }
+
+    fun addUser(v:View){
+        var userid = this.edittext_userid.text.toString()
+        var name = this.edittext_name.text.toString()
+        var age = this.edittext_age.text.toString()
+        var result = usersDBHelper.insertUser(UserModel(userid = userid,name = name,age = age))
+        //clear all edittext s
+        this.edittext_age.setText("")
+        this.edittext_name.setText("")
+        this.edittext_userid.setText("")
+        this.textview_result.text = "Added user : "+result
+        this.ll_entries.removeAllViews()
+    }
+
+    fun deleteUser(v:View){
+        var userid = this.edittext_userid.text.toString()
+        val result = usersDBHelper.deleteUser(userid)
+        this.textview_result.text = "Deleted user : "+result
+        this.ll_entries.removeAllViews()
+    }
+
+    fun showAllUsers(v:View){
+        var users = usersDBHelper.readAllUsers()
+        this.ll_entries.removeAllViews()
+        users.forEach {
+            var tv_user = TextView(this)
+            tv_user.textSize = 30F
+            tv_user.text = it.name.toString() + " - " + it.age.toString()
+            this.ll_entries.addView(tv_user)
+        }
+        this.textview_result.text = "Fetched " + users.size + " users"
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+Programming Security and permissions
+
+Extra  Packages requied in ManagePermission.kt (Class File)
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
+Extra  Packages requied in MainActivity.kt 
+import android.Manifest
+import android.content.Context
+import android.os.Build
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
+
+For Multple Permission Access,need to add following line in class MainActivity
+
+private val PermissionsRequestCode = 123
+
+
+in Android Manifest
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.CAMERA"/>
+<uses-permission android:name="android.permission.READ_CONTACTS"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.SEND_SMS"/>
+<uses-permission android:name="android.permission.READ_CALENDAR"/>
+
+
+
+3.	MainActivity.kt 
+package com.example.admin.permissionappdemo
+
+import android.Manifest
+import android.content.Context
+import android.os.Build
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
+
+
+class MainActivity : AppCompatActivity() {
+    private val PermissionsRequestCode = 123
+    private lateinit var managePermissions: ManagePermissions
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Initialize a list of required permissions to request runtime
+        val list = listOf<String>(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.READ_CALENDAR
+        )
+
+        // Initialize a new instance of ManagePermissions class
+        managePermissions = ManagePermissions(this,list,PermissionsRequestCode)
+
+        // Button to check permissions states
+        button.setOnClickListener{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                managePermissions.checkPermissions()
+        }
+    }
+
+
+    // Receive the permissions request result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
+        when (requestCode) {
+            PermissionsRequestCode ->{
+                val isPermissionsGranted = managePermissions
+                    .processPermissionsResult(requestCode,permissions,grantResults)
+
+                if(isPermissionsGranted){
+                    // Do the task now
+                    toast("Permissions granted.")
+                }else{
+                    toast("Permissions denied.")
+                }
+                return
+            }
+        }
+    }
+}
+
+
+// Extension function to show toast message
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+5.	Write the following code in the Class File
+
+
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
+
+
+class ManagePermissions(val activity: Activity,val list: List<String>,val code:Int) {
+
+    // Check permissions at runtime
+    fun checkPermissions() {
+        if (isPermissionsGranted() != PackageManager.PERMISSION_GRANTED) {
+            showAlert()
+        } else {
+            activity.toast("Permissions already granted.")
+        }
+    }
+
+
+    // Check permissions status
+    private fun isPermissionsGranted(): Int {
+        // PERMISSION_GRANTED : Constant Value: 0
+        // PERMISSION_DENIED : Constant Value: -1
+        var counter = 0;
+        for (permission in list) {
+            counter += ContextCompat.checkSelfPermission(activity, permission)
+        }
+        return counter
+    }
+
+
+    // Find the first denied permission
+    private fun deniedPermission(): String {
+        for (permission in list) {
+            if (ContextCompat.checkSelfPermission(activity, permission)
+                == PackageManager.PERMISSION_DENIED) return permission
+        }
+        return ""
+    }
+
+
+    // Show alert dialog to request permissions
+    private fun showAlert() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle("Need permission(s)")
+        builder.setMessage("Some permissions are required to do the task.")
+        builder.setPositiveButton("OK", { dialog, which -> requestPermissions() })
+        builder.setNeutralButton("Cancel", null)
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
+    // Request the permissions at run time
+    private fun requestPermissions() {
+        val permission = deniedPermission()
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+            // Show an explanation asynchronously
+            activity.toast("Should show an explanation.")
+        } else {
+            ActivityCompat.requestPermissions(activity, list.toTypedArray(), code)
+        }
+    }
+
+
+    // Process permissions result
+    fun processPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                 grantResults: IntArray): Boolean {
+        var result = 0
+        if (grantResults.isNotEmpty()) {
+            for (item in grantResults) {
+                result += item
+            }
+        }
+        if (result == PackageManager.PERMISSION_GRANTED) return true
+        return false
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+Programming Network Communications and Services (JSON)
+
+Open your AndroidManifest.xml file and add the permissions like so:
+
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.example.android.internetconnectivity">
+
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+
+[...]
+
+</manifest>
+
+When there is a network connection, we will fetch data from an API. Let’s set up an interface to hold the endpoints we will access. Create a new Kotlin file named ApiService and paste this:
+import retrofit2.Call
+import retrofit2.http.GET
+
+interface ApiService {
+    @GET(".")
+    fun getFeeds(): Call<String>
+}
+
+For this demo, we are only going to access one endpoint, which is equivalent to our base URL. It’s for this reason we used a dot instead of the usual /some-url in the @GET annotation.
+
+When these items are fetched, we will display the items in a list. We, therefore, need a RecyclerView in the layout and a matching adapter. Create a new Kotlin file named RecyclerAdapter and paste this:
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+
+class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+
+    private var list = ArrayList<String>()
+
+    fun setItems(newList: ArrayList<String>){
+        this.list = newList
+        this.notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = list.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+                .inflate(android.R.layout.simple_list_item_1, parent, false)
+
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.textView.text = list[position]
+    }
+
+    inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView) {
+        var textView: TextView = itemView!!.findViewById(android.R.id.text1)
+    }
+
+}
+
+he adapter handles the display of items on a list. It has some overridden methods like:
+
+getItemCount – to tell the size of the list to be populated.
+onCreateViewHolder – used to choose a layout for a list row.
+onBindViewHolder – to bind data to each row depending on the position, etc.
+Next, we will update the layout of our MainActivity‘s activity_main.xml file like so:
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".MainActivity">
+
+<android.support.v7.widget.RecyclerView
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/recyclerView"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintLeft_toLeftOf="parent"
+app:layout_constraintRight_toRightOf="parent"
+app:layout_constraintTop_toTopOf="parent" />
+
+<ImageView
+android:id="@+id/imageView"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:src="@drawable/no_internet_connection" />
+
+</android.support.constraint.ConstraintLayout>
+
+The layout contains a RecyclerView for our list items and an ImageView to show an error message.
+We also need an error message image. Once you have an image, rename the file to no_internet_connection and save it to your drawable folder: NameOfProject/app/src/main/res/drawable.
+For us to monitor when the connectivity changes, we need broadcast receivers. Broadcast receivers are components that allow you to register and listen to Android system and application events. Usually, the Android system sends broadcast events when various system events occur and your app needs to register to get these events.
+Let’s register a listener to be triggered when the internet connection is online or offline. Open your MainActivity file and paste the following code:
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.View
+import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.OkHttpClient
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+
+
+class MainActivity : AppCompatActivity() {
+
+    private val arrayList = ArrayList<String>()
+    private val adapter = RecyclerAdapter()
+    private val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.reddit.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .client(OkHttpClient.Builder().build())
+            .build()
+
+    private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val notConnected = intent.getBooleanExtra(ConnectivityManager
+                    .EXTRA_NO_CONNECTIVITY, false)
+            if (notConnected) {
+                disconnected()
+            } else {
+                connected()
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        setupRecyclerView()
+    }
+
+}
+
+Above, we initialized some variables:
+
+arrayList – we will add fetched items to this list.
+adapter – this is the instance of the adapter class.
+retrofit – a Retrofit instance.
+broadcastReciever – this instance implements the onRecieve callback. This callback method is called when the system has notified us of a change in the network connection. In the callback, we then check to know the connectivity status thereby calling either a private connected or disconnected function.
+After creating the broadcast receiver, we have to register it to get updates and unregister if there are no more activities. To do this, add the following functions to the code above in the 
+MainActivity:
+override fun onStart() {
+    super.onStart()
+    registerReceiver(broadcastReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+}
+
+override fun onStop() {
+    super.onStop()
+    unregisterReceiver(broadcastReceiver)
+}
+
+In the onCreate function, we set up our RecyclerView by calling the setupRecyclerView. Create a private function in the MainActivity class and set it up like this:
+private fun setupRecyclerView(){
+    with(recyclerView){
+        layoutManager = LinearLayoutManager(this@MainActivity)
+        adapter = this@MainActivity.adapter
+    }
+}
+
+Remember we mentioned the connected and disconnected functions earlier in this post. We will now add them to the class. Add them to the MainActivity file like so:
+private fun disconnected() {
+    recyclerView.visibility = View.INVISIBLE
+    imageView.visibility = View.VISIBLE
+}
+
+private fun connected() {
+    recyclerView.visibility = View.VISIBLE
+    imageView.visibility = View.INVISIBLE
+    fetchFeeds()
+}
+
+The disconnected function is called when there is no network connection. It hides the RecyclerView and shows the ImageView. The connected function is called when there is an active internet connection. It shows the RecyclerView, hides the ImageView, and finally calls the fetchFeeds function.
+Next, in the same file, paste the following code:
+private fun fetchFeeds() {
+    retrofit.create(ApiService::class.java)
+            .getFeeds()
+            .enqueue(object : Callback<String> {
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("MainActivityTag", t.message)
+                }
+
+                override fun onResponse(call: Call<String>?, response: Response<String>) {
+                    addTitleToList(response.body()!!)
+                }
+
+            })
+}
+
+This function calls the API to get data. When the call is successful, we have another function that helps us add the title of the posts gotten from the endpoint to our list and then to our adapter. Create a function named addTitleToList and set it up like so:
+private fun addTitleToList(response: String) {
+    val jsonObject = JSONObject(response).getJSONObject("data")
+    val children = jsonObject.getJSONArray("children")
+
+    for (i in 0..(children.length()-1)) {
+        val item = children.getJSONObject(i).getJSONObject("data").getString("title")
+        arrayList.add(item)
+        adapter.setItems(arrayList)
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+VIVA
+
+
+1) What is Android?
+It is an open-sourced operating system that is used primarily on mobile
+devices, such as cell phones and tablets. It is a Linux kernel-based system
+that’s been equipped with rich components that allows developers to create
+and run apps that can perform both basic and advanced functions.
+2) What Is the Google Android SDK?
+The Google Android SDK is a toolset that developers need in order to write
+apps on Android enabled devices. It contains a graphical interface that
+emulates an Android driven handheld environment, allowing them to test
+and debug their codes.
+3) What is the Android Architecture?
+Android Architecture is made up of 4 key components:
+ Linux Kernel
+ Libraries
+ Android Framework
+ Android Applications
+4) Describe the Android Framework.
+The Android Framework is an important aspect of the Android Architecture.
+Here you can find all the classes and methods that developers would need
+in order to write applications on the Android environment.
+5) What is AAPT?
+AAPT is short for Android Asset Packaging Tool. This tool provides
+developers with the ability to deal with zip-compatible archives, which
+includes creating, extracting as well as viewing its contents.
+6) What is the importance of having an emulator within
+the Android environment?
+The emulator lets developers “play” around an interface that acts as if it
+were an actual mobile device. They can write and test codes, and even
+debug. Emulators are a safe place for testing codes especially if it is in the
+early design phase.7) What is the use of an activityCreator?
+An activityCreator is the first step towards the creation of a new Android
+project. It is made up of a shell script that will be used to create new file
+system structure necessary for writing codes within the Android IDE.
+8) Describe Activities.
+Activities are what you refer to as the window to a user interface. Just as
+you create windows in order to display output or to ask for an input in the
+form of dialog boxes, activities play the same role, though it may not always
+be in the form of a user interface.
+9) What are Intents?
+Intents displays notification messages to the user from within the Android
+enabled device. It can be used to alert the user of a particular state that
+occurred. Users can be made to respond to intents.
+10) Differentiate Activities from Services.
+Activities can be closed, or terminated anytime the user wishes. On the
+other hand, services are designed to run behind the scenes, and can act
+independently. Most services run continuously, regardless of whether there
+are certain or no activities being executed.
+11) What items are important in every Android project?
+These are the essential items that are present each time an Android project
+is created:
+ AndroidManifest.xml
+ build.xml
+ bin/
+ src/
+ res/
+ assets/12) What is the importance of XML-based layouts?
+The use of XML-based layouts provides a consistent and somewhat
+standard means of setting GUI definition format. In common practice,
+layout details are placed in XML files while other items are placed in source
+files.
+13) What are containers?
+Containers, as the name itself implies, holds objects and widgets together,
+depending on which specific items are needed and in what particular
+arrangement that is wanted. Containers may hold labels, fields, buttons, or
+even child containers, as examples.
+14) What is Orientation?
+Orientation, which can be set using setOrientation(), dictates if the
+LinearLayout is represented as a row or as a column. Values are set as
+either HORIZONTAL or VERTICAL.
+15) What is the importance of Android in the mobile
+market?
+Developers can write and register apps that will specifically run under the
+Android environment. This means that every mobile device that is Android
+enabled will be able to support and run these apps. With the growing
+popularity of Android mobile devices, developers can take advantage of
+this trend by creating and uploading their apps on the Android Market for
+distribution to anyone who wants to download it.
+16) What do you think are some disadvantages of
+Android?
+Given that Android is an open-source platform, and the fact that different
+Android operating systems have been released on different mobile devices,
+there’s no clear cut policy to how applications can adapt with various OS
+versions and upgrades. One app that runs on this particular version
+of Android OS may or may not run on another version. Another
+disadvantage is that since mobile devices such as phones and tabs come
+in different sizes and forms, it poses a challenge for developers to create
+apps that can adjust correctly to the right screen size and other varying
+features and specs.17) What is adb?
+Adb is short for Android Debug Bridge. It allows developers the power to
+execute remote shell commands. Its basic function is to allow and control
+communication towards and from the emulator port.
+18) What are the four essential states of an activity?
+ Active – if the activity is at the foreground
+ Paused – if the activity is at the background and still visible
+ Stopped – if the activity is not visible and therefore is hidden or
+obscured by another activity
+ Destroyed – when the activity process is killed or completed
+terminated
+19) What is ANR?
+ANR is short for Application Not Responding. This is actually a dialog that
+appears to the user whenever an application have been unresponsive for a
+long period of time.
+20) Which elements can occur only once and must be
+present?
+Among the different elements, the “and” elements must be present and can
+occur only once. The rest are optional, which can occur as many times as
+needed.
+21) How are escape characters used as attribute?
+Escape characters are preceded by double backslashes. For example, a
+newline character is created using ‘\\n’
+22) What is the importance of settings permissions in
+app development?
+Permissions allow certain restrictions to be imposed primarily to protect
+data and code. Without these, codes could be compromised, resulting to
+defects in functionality.23) What is the function of an intent filter?
+Because every component needs to indicate which intents they can
+respond to, intent filters are used to filter out intents that these components
+are willing to receive. One or more intent filters are possible, depending on
+the services and activities that is going to make use of it.
+24) Enumerate the three key loops when monitoring an
+activity
+ Entire lifetime – activity happens between onCreate and onDestroy
+ Visible lifetime – activity happens between onStart and onStop
+ Foreground lifetime – activity happens between onResume and
+onPause
+25) When is the onStop() method invoked?
+A call to onStop method happens when an activity is no longer visible to the
+user, either because another activity has taken over or if in front of that
+activity.
+26) Is there a case wherein other qualifiers in multiple
+resources take precedence over locale?
+Yes, there are actually instances wherein some qualifiers can take
+precedence over locale. There are two known exceptions, which are the
+MCC (mobile country code) and MNC (mobile network code) qualifiers.
+27) What are the different states wherein a process is
+based?
+There are 4 possible states:
+ foreground activity
+ visible activity
+ background activity
+ empty process28) How can the ANR be prevented?
+One technique that prevents the Android system from concluding a code
+that has been responsive for a long period of time is to create a child
+thread. Within the child thread, most of the actual workings of the codes
+can be placed, so that the main thread runs with minimal periods of
+unresponsive times.
+29) What role does Dalvik play in Android development?
+Dalvik serves as a virtual machine, and it is where every Android
+application runs. Through Dalvik, a device is able to execute multiple virtual
+machines efficiently through better memory management.
+30) What is the AndroidManifest.xml?
+This file is essential in every application. It is declared in the root directory
+and contains information about the application that the Android system
+must know before the codes can be executed.
+31) What is the proper way of setting up an Androidpowered device for app development?
+The following are steps to be followed prior to actual application
+development in an Android-powered device:
+-Declare your application as “debuggable” in your Android Manifest.
+-Turn on “USB Debugging” on your device.
+-Set up your system to detect your device.
+32) Enumerate the steps in creating a bounded service
+through AIDL.
+1. create the .aidl file, which defines the programming interface
+2. implement the interface, which involves extending the inner abstract
+Stub class as well as implanting its methods.
+3. expose the interface, which involves implementing the service to the
+clients.33) What is the importance of Default Resources?
+When default resources, which contain default strings and files, are not
+present, an error will occur and the app will not run. Resources are placed
+in specially named subdirectories under the project res/ directory.
+34) When dealing with multiple resources, which one
+takes precedence?
+Assuming that all of these multiple resources are able to match the
+configuration of a device, the ‘locale’ qualifier almost always takes the
+highest precedence over the others.
+35) When does ANR occur?
+The ANR dialog is displayed to the user based on two possible conditions.
+One is when there is no response to an input event within 5 seconds, and
+the other is when a broadcast receiver is not done executing within 10
+seconds.
+36) What is AIDL?
+AIDL, or Android Interface Definition Language, handles the interface
+requirements between a client and a service so both can communicate at
+the same level through interprocess communication or IPC. This process
+involves breaking down objects into primitives that Android can understand.
+This part is required simply because a process cannot access the memory
+of the other process.
+37) What data types are supported by AIDL?
+AIDL has support for the following data types:
+-string
+-charSequence
+-List
+-Map
+-all native Java data types like int,long, char and Boolean38) What is a Fragment?
+A fragment is a part or portion of an activity. It is modular in a sense that
+you can move around or combine with other fragments in a single activity.
+Fragments are also reusable.
+39) What is a visible activity?
+A visible activity is one that sits behind a foreground dialog. It is actually
+visible to the user, but not necessarily being in the foreground itself.
+40) When is the best time to kill a foreground activity?
+The foreground activity, being the most important among the other states,
+is only killed or terminated as a last resort, especially if it is already
+consuming too much memory. When a memory paging state has been
+reach by a foreground activity, then it is killed so that the user interface can
+retain its responsiveness to the user.
+41) Is it possible to use or add a fragment without using a
+user interface?
+Yes, it is possible to do that, such as when you want to create a
+background behavior for a particular activity. You can do this by using
+add(Fragment,string) method to add a fragment from the activity.
+42) How do you remove icons and widgets from the main
+screen of the Android device?
+To remove an icon or shortcut, press and hold that icon. You then drag it
+downwards to the lower part of the screen where a remove button appears.43) What are the core components under the Android
+application architecture?
+There are 5 key components under the Android application architecture:
+– services
+– intent
+– resource externalization
+– notifications
+– content providers
+44) What composes a typical Android application
+project?
+A project under Android development, upon compilation, becomes an .apk
+file. This apk file format is actually made up of the AndroidManifest.xml file,
+application code, resource files, and other related files.
+45) What is a Sticky Intent?
+A Sticky Intent is a broadcast from sendStickyBroadcast() method such that
+the intent floats around even after the broadcast, allowing others to collect
+data from it.
+46) Do all mobile phones support the latest Android
+operating system?
+Some Android-powered phone allows you to upgrade to the higher Android
+operating system version. However, not all upgrades would allow you to get
+the latest version. It depends largely on the capability and specs of the
+phone, whether it can support the newer features available under the latest
+Android version.
+47) What is portable wi-fi hotspot?
+Portable Wi-Fi Hotspot allows you to share your mobile internet connection
+to other wireless device. For example, using your Android-powered phone
+as a Wi-Fi Hotspot, you can use your laptop to connect to the Internet using
+that access point.48) What is an action?
+In Android development, an action is what the intent sender wants to do or
+expected to get as a response. Most application functionality is based on
+the intended action.
+49) What is the difference between a regular bitmap and a
+nine-patch image?
+In general, a Nine-patch image allows resizing that can be used as
+background or other image size requirements for the target device. The
+Nine-patch refers to the way you can resize the image: 4 corners that are
+unscaled, 4 edges that are scaled in 1 axis, and the middle one that can be
+scaled into both axes.
+50) What language is supported by Android for
+application development?
+The main language supported is Java programming language. Java is the
+most popular language for app development, which makes it ideal even for
+new Android developers to quickly learn to create and deploy applications
+in the Android environment.
+1) What is Android?
+Android is an open-source, Linux-based operating system used in mobiles, tablets,
+televisions, etc.
+2) Who is the founder of Android?
+Andy Rubin.3) Explain the Android application Architecture.
+Following is a list of components of Android application architecture:
+o Services: Used to perform background functionalities.
+o Intent: Used to perform the interconnection between activities and the data
+passing mechanism.
+o Resource Externalization: strings and graphics.
+o Notification: light, sound, icon, notification, dialog box and toast.
+o Content Providers: It will share the data between applications.
+4) What are the code names of android?
+1. Aestro
+2. Blender
+3. Cupcake
+4. Donut
+5. Eclair
+6. Froyo
+7. Gingerbread
+8. Honeycomb
+9. Ice Cream Sandwich
+10. Jelly Bean
+11. KitKat
+12. Lollipop
+13. Marshmallow5) What are the advantages of Android?
+Open-source: It means no license, distribution and development fee.
+Platform-independent: It supports Windows, Mac, and Linux platforms.
+Supports various technologies: It supports camera, Bluetooth, wifi, speech, EDGE etc.
+technologies.
+Highly optimized Virtual Machine: Android uses a highly optimized virtual machine
+for mobile devices, called DVM (Dalvik Virtual Machine).
+6) Does android support other languages than java?
+Yes, an android app can be developed in C/C++ also using android NDK (Native
+Development Kit). It makes the performance faster. It should be used with Android
+SDK.
+7) What are the core building blocks of android?
+The core building blocks of Android are:
+o Activity
+o View
+o Intent
+o Service
+o Content Provider
+o Fragment etc.
+8) What is activity in Android?
+Activity is like a frame or window in java that represents GUI. It represents one screen
+of android.9) What are the life cycle methods of android activity?
+There are 7 life-cycle methods of activity. They are as follows:
+1. onCreate()
+2. onStart()
+3. onResume()
+4. onPause()
+5. onStop()
+6. onRestart()
+7. onDestroy()
+10) What is intent?
+It is a kind of message or information that is passed to the components. It is used to
+launch an activity, display a web page, send SMS, send email, etc. There are two types
+of intents in android:
+1. Implicit Intent
+2. Explicit Intent
+11) How are view elements identified in the android program?
+View elements can be identified using the keyword findViewById.
+12) Define Android toast.
+An android toast provides feedback to the users about the operation being performed
+by them. It displays the message regarding the status of operation initiated by the
+user.13) Give a list of impotent folders in android
+The following folders are declared as impotent in android:
+o AndroidManifest.xml
+o build.xml
+o bin/
+o src/
+o res/
+o assets/
+14) Explain the use of 'bundle' in android?
+We use bundles to pass the required data to various subfolders.
+15) What is an application resource file?
+The files which can be injected for the building up of a process are called as application
+resource file.
+16) What is the use of LINUX ID in android?
+A unique Linux ID is assigned to each application in android. It is used for the tracking
+of a process.
+17) Can the bytecode be written in java be run on android?
+No18) List the various storages that are provided by Android.
+The various storage provided by android are:
+AD
+o Shared Preferences
+o Internal Storage
+o External Storage
+o SQLite Databases
+o Network Connection
+19) How are layouts placed in Android?
+Layouts in Android are placed as XML files.
+20) Where are layouts placed in Android?
+Layouts in Android are placed in the layout folder.
+21) What is the implicit intent in android?
+The Implicit intent is used to invoke the system components.
+22) What is explicit intent in android?
+An explicit intent is used to invoke the activity class.
+23) How to call another activity in android?
+1. Intent i = new Intent(getApplicationContext(), ActivityTwo.class);
+2. startActivity(i);24) What is service in android?
+A service is a component that runs in the background. It is used to play music, handle
+network transaction, etc.
+25) What is the name of the database used in android?
+SQLite: An opensource and lightweight relational database for mobile devices.
+26) What is AAPT?
+AAPT is an acronym for android asset packaging tool. It handles the packaging process.
+27) What is a content provider?
+A content provider is used to share information between Android applications.
+28) What is fragment?
+The fragment is a part of Activity by which we can display multiple screens on one
+activity.
+29) What is ADB?
+ADB stands for Android Debug Bridge. It is a command line tool that is used to
+communicate with the emulator instance.
+30) What is NDK?
+NDK stands for Native Development Kit. By using NDK, you can develop a part of an
+app using native language such as C/C++ to boost the performance.31) What is ANR?
+ANR stands for Application Not Responding. It is a dialog box that appears if the
+application is no longer responding.
+32) What is the Google Android SDK?
+The Google Android SDK is a toolset which is used by developers to write apps on
+Android-enabled devices. It contains a graphical interface that emulates an Androiddriven handheld environment and allows them to test and debug their codes.
+33) What is an APK format?
+APK is a short form stands for Android Packaging Key. It is a compressed key with
+classes, UI's, supportive assets and manifest. All files are compressed to a single file is
+called APK.
+34) Which language does Android support to develop an
+application?
+Android applications are written by using the java (Android SDK) and C/C++ (Android
+NDK).
+35) What is ADT in Android?
+ADT stands for Android Development Tool. It is used to develop the applications and
+test the applications.36) What is View Group in Android?
+View Group is a collection of views and other child views. It is an invisible part and the
+base class for layouts.
+37) What is the Adapter in Android?
+An adapter is used to create a child view to present the parent view items.
+38) What is nine-patch images tool in Android?
+We can change bitmap images into nine sections with four corners, four edges, and
+an axis.
+39) Which kernel is used in Android?
+Android is a customized Linux 3.6 kernel.
+40) What is application Widgets in Android?
+Application widgets are miniature application views that can be embedded in other
+applications and receive periodic updates.
+41) Which types of flags are used to run an application on
+Android?
+Following are two types of flags to run an application in Android:
+o FLAG_ACTIVITY_NEW_TASK
+o FLAG_ACTIVITY_CLEAR_TOP42) What is a singleton class in Android?
+A singleton class is a class which can create only an object that can be shared by all
+other classes.
+43) What is sleep mode in Android?
+In sleep mode, CPU is slept and doesn't accept any commands from android device
+except Radio interface layer and alarm.
+44) What do you mean by a drawable folder in Android?
+In Android, a drawable folder is compiled a visual resource that can use as a
+background, banners, icons, splash screen, etc.
+45) What is DDMS?
+DDMS stands for Dalvik Debug Monitor Server. It gives the wide array of debugging
+features:
+1. Port forwarding services
+2. Screen capture
+3. Thread and heap information
+4. Network traffic tracking
+5. Location data spoofing46) Define Android Architecture?
+The Android architecture consists of 4 components:
+1. Linux Kernal
+2. Libraries
+3. Android Framework
+4. Android Applications
+47) What is a portable wi-fi hotspot?
+The portable wi-fi hotspot is used to share internet connection to other wireless
+devices.
+48) Name the dialog box which is supported by Android?
+o Alert Dialog
+o Progress Dialog
+o Date Picker Dialog
+o Time picker Dialog
+49) Name some exceptions in Android?
+o Inflate Exception
+o Surface.OutOfResourceException
+o SurfaceHolder.BadSurfaceTypeException
+o WindowManager.BadTokenException50) What are the basic tools used to develop an Android app?
+o JDK
+o Eclipse+ADT plugin
+o SDK Tools
